@@ -23,10 +23,11 @@ class Model(object):
 class Trip(Model):
 
 	def __init__(self, **params):
+		self.departure_date = self.convert_datetime(params.get('departure_date'))
+		self.departure_place = self.convert_datetime(params.get('departure_place'))
+		
 		self.links = params.get('links')
 		self.frequency = params.get('frequency')
-		self.departure_date = params.get('departure_date')
-		self.departure_place = params.get('departure_place')
 		self.arrival_place = params.get('arrival_place')
 		self.price = params.get('price')
 		self.price_with_commission = params.get('price_with_commission')
