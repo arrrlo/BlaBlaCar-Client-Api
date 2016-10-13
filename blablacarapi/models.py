@@ -35,7 +35,7 @@ class Trips(Model):
         self.facets = params.get('facets')
         self.savings = params.get('savings')
         self.distance = params.get('distance')
-        self.suration = params.get('suration')
+        self.duration = params.get('duration')
         self.recommended_price = params.get('recommended_price')
 
 
