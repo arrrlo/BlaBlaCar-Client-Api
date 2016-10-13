@@ -1,4 +1,4 @@
-from models import Trip
+from models import Trip, Trips
 from bind import bind_request
 from api_exceptions import BlaBlaCarRequestApiException
 
@@ -8,46 +8,45 @@ __author__ = 'ivan.arar@gmail.com'
 
 class Client(object):
 
-	base_url = 'public-api.blablacar.com'
-	base_path = '/api/v2'
-	protocol = 'https'
-	format = 'json'
+    base_url = 'public-api.blablacar.com'
+    base_path = '/api/v2'
+    protocol = 'https'
+    format = 'json'
+    paging_root = 'pager'
 
-	standard_query_parameters = {
-		'locale': 'locale', 
-		'currency': 'cur', 
-	}
+    standard_query_parameters = {
+        'locale': 'locale', 
+        'currency': 'cur', 
+    }
 
-	def __init__(self, api_key=None):
-		if not api_key:
-			raise BlaBlaCarRequestApiException('API key missing!')
-		self.api_key = api_key
+    def __init__(self, api_key=None):
+        if not api_key:
+            raise BlaBlaCarRequestApiException('API key missing!')
+        self.api_key = api_key
 
-	trips = bind_request(
-		api_path = '/trips',
-		response_root = 'trips',
-		model = Trip,
-		query_parameters = {
-			# locations
-			'frm': 'fn', 'to': 'tn', 'from_coordinate': 'fc', 'to_coordinate': 'tc', 
+    trips = bind_request(
+        api_path = '/trips',
+        model = Trips,
+        query_parameters = {
+            # locations
+            'frm': 'fn', 'to': 'tn', 'from_coordinate': 'fc', 'to_coordinate': 'tc', 
 
-			# dates and hours
-			'date_from': 'db', 'date_to': 'de', 'hour_from': 'hb', 'hour_to': 'he', 
+            # dates and hours
+            'date_from': 'db', 'date_to': 'de', 'hour_from': 'hb', 'hour_to': 'he', 
 
-			# other seaerch params
-			'seats': 'seats', 'photo': 'photo', 'radius': 'radius', 
+            # other seaerch params
+            'seats': 'seats', 'photo': 'photo', 'radius': 'radius', 
 
-			# return data
-			'page': 'page', 'return_fields': 'fields', 
+            # return data
+            'page': 'page', 'return_fields': 'fields', 
 
-			# sort, order, limit
-			'sort': 'sort', 'order': 'order', 'limit': 'limit',
-		}
-	)
+            # sort, order, limit
+            'sort': 'sort', 'order': 'order', 'limit': 'limit',
+        }
+    )
 
-	trip = bind_request(
-		api_path = '/trips',
-		response_root = None,
-		model = Trip,
-		query_parameters = {}
-	)
+    trip = bind_request(
+        api_path = '/trips',
+        model = Trip,
+        query_parameters = {}
+    )

@@ -14,7 +14,6 @@ def bind_request(**request_data):
         model = request_data.get('model')
         api_path = request_data.get('api_path')
         method = request_data.get('method', 'GET')
-        response_root = request_data.get('response_root')
         query_parameters = request_data.get('query_parameters')
 
         def __init__(self, client, *path_params, **query_params):
@@ -30,9 +29,9 @@ def bind_request(**request_data):
                 if value is None:
                     continue
                 if key in self.query_parameters.values():
-                    self.parameters['query'][key] = value.encode('utf-8')
+                    self.parameters['query'][key] = str(value).encode('utf-8')
                 elif key in self.query_parameters.keys():
-                    self.parameters['query'][self.query_parameters[key]] = value.encode('utf-8')
+                    self.parameters['query'][self.query_parameters[key]] = str(value).encode('utf-8')
 
             for value in path_params:
                 self.parameters['path'].append(value.encode('utf-8'))
@@ -68,28 +67,21 @@ def bind_request(**request_data):
                 # For future POST, PUT, DELETE requests
                 pass
 
-        def _proccess_content(self, status_code, content):
+        def _proccess_response(self, status_code, response):
             if status_code != 200:
-                if 'message' in content:
-                    raise BlaBlaCarRequestApiException(content['message'])
-                if 'error' in content:
-                    raise BlaBlaCarRequestApiException(content['error'].get('message', 'Unknown error occurred!'))
+                if 'message' in response:
+                    raise BlaBlaCarRequestApiException(response['message'])
+                if 'error' in response:
+                    raise BlaBlaCarRequestApiException(response['error'].get('message', 'Unknown error occurred!'))
                 else:
                     raise BlaBlaCarRequestApiException('Unknown error occurred!')
             
-            if self.response_root:
-                list_models = []
-                for item in content[self.response_root]:
-                    list_models.append(self.model.proccess(item))
-            else:
-                list_models = self.model.proccess(content)
-
-            return list_models
+            return self.model.proccess(response)
 
         def _call(self):
             url, params = self._prepare_request()
-            status_code, content = self._do_request(url, params)
-            return self._proccess_content(status_code, content)
+            status_code, response = self._do_request(url, params)
+            return self._proccess_response(status_code, response)
 
     def call(client, *path_params, **query_params):
         request = ApiRequest(client, *path_params, **query_params)
