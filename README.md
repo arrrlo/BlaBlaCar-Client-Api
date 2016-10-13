@@ -2,7 +2,7 @@
 
 <p>Easily search for trips!</p>
 
-<h3>Instalation</h3>
+<h3>Installation</h3>
 
 ```
 pip install git+git://github.com/arrrlo/BlaBlaCar-Client-Api@master
