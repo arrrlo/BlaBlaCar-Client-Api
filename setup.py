@@ -9,6 +9,6 @@ setup(
     author_email='ivan.arar@gmail.com',
     url='https://github.com/arrrlo/BlaBlaCar-Client-Api',
     install_requires=[
-        'requests'
+        'requests ~= 2.11.0'
     ],
 )

@@ -1,4 +1,4 @@
-<h1>BlaBlaCar Client Api</h1>
+<h1>BlaBlaCar Client Api Python Library</h1>
 
 <p>Easily search for trips!</p>
 
@@ -13,12 +13,19 @@ pip install git+git://github.com/arrrlo/BlaBlaCar-Client-Api@master
 ```
 from blablacar import BlaBlaCarApi
 
+# initialize API
 api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__")
+
+# fetch trips from London to Paris
 trips = api.trips(frm="London", to="Paris")
 
+# iterate over the results
 for trip in trips:
 	print("%s: %s -> %s" % (trip.departure_date, 
 							trip.departure_place['address'], 
 							trip.arrival_place['address']))
+
+	# fetch data for one trip using trip id
+	single_trip = api.trip(trip.permanent_id)
 ```
 

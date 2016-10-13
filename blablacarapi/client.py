@@ -13,6 +13,11 @@ class Client(object):
 	protocol = 'https'
 	format = 'json'
 
+	standard_query_parameters = {
+		'locale': 'locale', 
+		'currency': 'cur', 
+	}
+
 	def __init__(self, api_key=None):
 		if not api_key:
 			raise BlaBlaCarRequestApiException('API key missing!')
@@ -22,10 +27,7 @@ class Client(object):
 		api_path = '/trips',
 		response_root = 'trips',
 		model = Trip,
-		parameters_map = {
-			# required parameters
-			'locale': 'locale', 'currency': 'cur', 
-
+		query_parameters = {
 			# locations
 			'frm': 'fn', 'to': 'tn', 'from_coordinate': 'fc', 'to_coordinate': 'tc', 
 
@@ -41,4 +43,11 @@ class Client(object):
 			# sort, order, limit
 			'sort': 'sort', 'order': 'order', 'limit': 'limit',
 		}
+	)
+
+	trip = bind_request(
+		api_path = '/trips',
+		response_root = None,
+		model = Trip,
+		query_parameters = {}
 	)
