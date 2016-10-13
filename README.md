@@ -29,3 +29,4 @@ for trip in trips:
 	single_trip = api.trip(trip.permanent_id)
 ```
 
+<p>Works on both 2.7.x and 3.x python.</p>

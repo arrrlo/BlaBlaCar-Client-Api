@@ -1,6 +1,6 @@
 from models import Trip
 from bind import bind_request
-from exceptions import BlaBlaCarRequestApiException
+from api_exceptions import BlaBlaCarRequestApiException
 
 
 __author__ = 'ivan.arar@gmail.com'

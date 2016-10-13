@@ -1,7 +1,7 @@
 import os
 import requests
 
-from exceptions import BlaBlaCarRequestApiException
+from api_exceptions import BlaBlaCarRequestApiException
 
 
 __author__ = 'ivan.arar@gmail.com'
