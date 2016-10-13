@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 __author__ = 'ivan.arar@gmail.com'
 
 
@@ -6,6 +9,15 @@ class Model(object):
 	@classmethod
 	def proccess(cls, params):
 		return cls(**params)
+
+	def convert_datetime(self, date_time):
+		try:
+			dt = date_time.split(' ')
+			d = dt.split('/')
+			t = dt.split(':')
+			return datetime(int(d[2]), int(d[1]), int(d[0]), int(t[0]), int(t[1]), int(t[2]))
+		except:
+			return date_time
 
 
 class Trip(Model):
