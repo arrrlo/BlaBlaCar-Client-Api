@@ -3,6 +3,7 @@
 <p>Easily search for trips!</p>
 
 <h3>Installation</h3>
+<p>Works on both 2.7.x and 3.x python.</p>
 
 ```
 pip install git+git://github.com/arrrlo/BlaBlaCar-Client-Api@master
@@ -41,11 +42,10 @@ for trip in trips.trips:
 # paging
 trips.pager.has_next() # True or False
 trips.pager.next() # returns 2 if the current page is 1
+trips.pager.has_previous() # True or False
 trips.pager.previous() # returns False if the current page is 1, and it returns 1 if current page is 1
 ```
 
-<p>Works on both 2.7.x and 3.x python.</p>
-
 <h3>Official documentation</h3>
 
-<p>For more information visit oficial documentation: <a href="https://dev.blablacar.com/docs/versions/1.0">https://dev.blablacar.com/docs/versions/1.0</a></p>
+<p>For more information visit official documentation: <a href="https://dev.blablacar.com/docs/versions/1.0">https://dev.blablacar.com/docs/versions/1.0</a></p>
