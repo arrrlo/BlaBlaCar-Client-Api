@@ -43,7 +43,7 @@ for trip in trips.trips:
 trips.pager.has_next() # True or False
 trips.pager.next() # returns 2 if the current page is 1
 trips.pager.has_previous() # True or False
-trips.pager.previous() # returns False if the current page is 1, and it returns 2 if current page is 1
+trips.pager.previous() # returns False if the current page is 1, and it returns 1 if current page is 2
 ```
 
 <h3>Official documentation</h3>
