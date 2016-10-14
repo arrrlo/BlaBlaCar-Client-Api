@@ -1,4 +1,4 @@
-<h1>BlaBlaCar Client Api Python Library</h1>
+<h1>BlaBlaCar API Client Python Library</h1>
 
 <p>Easily search for trips!</p>
 
