@@ -63,7 +63,7 @@ api = BlaBlaCarApi(api_key="...", debug=True)
 # after every API call the client library will automatically print all the data to standard output
 api.call(...)
 
-# and you can always have all debug the data in your code
+# and you can always have all debug data in your code
 debug_data = api.request.debug.show()
 ```
 
