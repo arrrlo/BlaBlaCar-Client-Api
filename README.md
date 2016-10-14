@@ -48,6 +48,12 @@ trips.pager.previous() # returns False if the current page is 1, and it returns 
 
 <h3>Locales</h3>
 
+```
+api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", currency="en_GB")
+```
+
+<h3>Debugging</h3>
+
 <p>If you want to debug your code using the data regarding the API call.</p>
 
 ```
@@ -59,12 +65,6 @@ api.call(...)
 
 # and you can always have all debug the data in your code
 debug_data = api.request.debug.show()
-```
-
-<h3>Debugging</h3>
-
-```
-api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", currency="en_GB")
 ```
 
 <h3>Official documentation</h3>
