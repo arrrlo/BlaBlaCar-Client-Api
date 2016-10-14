@@ -13,12 +13,13 @@ class Client(object):
     protocol = 'https'
     format = 'json'
 
-    def __init__(self, api_key=None, locale=None, currency=None):
+    def __init__(self, api_key=None, locale=None, currency=None, debug=False):
         if not api_key:
             raise BlaBlaCarRequestApiException('API key missing!')
         self.api_key = api_key
         self.locale = locale
         self.currency = currency
+        self.debug = debug
 
     trips = bind_request(
         api_path = '/trips',

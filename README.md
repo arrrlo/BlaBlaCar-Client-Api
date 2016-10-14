@@ -46,6 +46,27 @@ trips.pager.has_previous() # True or False
 trips.pager.previous() # returns False if the current page is 1, and it returns 1 if current page is 2
 ```
 
+<h3>Locales</h3>
+
+<p>If you want to debug your code using the data regarding the API call.</p>
+
+```
+# initialize with debug=True
+api = BlaBlaCarApi(api_key="...", debug=True)
+
+# after every API call the client library will automatically print all the data to standard output
+api.call(...)
+
+# and you can always have all debug the data in your code
+debug_data = api.request.debug.show()
+```
+
+<h3>Debugging</h3>
+
+```
+api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", currency="en_GB")
+```
+
 <h3>Official documentation</h3>
 
 <p>For more information visit official documentation: <a href="https://dev.blablacar.com/docs/versions/1.0">https://dev.blablacar.com/docs/versions/1.0</a></p>

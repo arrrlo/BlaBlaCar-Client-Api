@@ -1,6 +1,6 @@
-import os
 import requests
 
+from debug import Debug
 from api_exceptions import BlaBlaCarRequestApiException
 
 
@@ -16,7 +16,9 @@ def bind_request(**request_data):
         method = request_data.get('method', 'GET')
         query_parameters = request_data.get('query_parameters')
 
-        def __init__(self, client, *path_params, **query_params):
+        def __init__(self, client, debug, *path_params, **query_params):
+            client.request = self
+            self.debug = debug
             self.client = client
             self.parameters = {'query': {}, 'path': []}
             self._set_parameters(*path_params, **query_params)
@@ -62,6 +64,9 @@ def bind_request(**request_data):
 
             url = '/'.join([part if type(part) == str else part.decode('utf-8') for part in url_parts])
 
+            self.debug.ok('url', url)
+            self.debug.ok('query_parameters', self.parameters['query'])
+
             return url, self.parameters['query']
 
         def _do_request(self, url, params):
@@ -72,8 +77,9 @@ def bind_request(**request_data):
             :return: Tuple with two elements, status code and content
             """
             if self.method == 'GET':
-                req = requests.get(url, params=params)
-                return req.status_code, req.json()
+                response = requests.get(url, params=params)
+                self.debug.ok('response_object', response)
+                return response.status_code, response.json()
             else:
                 # For future POST, PUT, DELETE requests
                 pass
@@ -86,12 +92,18 @@ def bind_request(**request_data):
             :return: Model with the data from the response
             """
             if status_code != 200:
+                self.debug.error('status_code', status_code)
+                self.debug.error('response', response)
+
                 if 'message' in response:
                     raise BlaBlaCarRequestApiException(response['message'])
                 if 'error' in response:
                     raise BlaBlaCarRequestApiException(response['error'].get('message', 'Unknown error occurred!'))
                 else:
                     raise BlaBlaCarRequestApiException('Unknown error occurred!')
+            else:
+                self.debug.ok('status_code', status_code)
+                self.debug.ok('response', response)
             
             return self.model.proccess(response)
 
@@ -111,7 +123,8 @@ def bind_request(**request_data):
         :query_params: dict of query parameters
         :return: Return value from ApiRequest._call()
         """
-        request = ApiRequest(client, *path_params, **query_params)
-        return request._call()
+        with Debug(client=client) as debug:
+            request = ApiRequest(client, debug, *path_params, **query_params)
+            return request._call()
 
     return call
