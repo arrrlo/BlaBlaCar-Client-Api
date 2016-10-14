@@ -23,7 +23,7 @@ def bind_request(**request_data):
 
         def _set_parameters(self, *path_params, **query_params):
             """
-            Prepare the list of query parameters
+            Prepares the list of query parameters
             :path_params: list of path parameters
             :query_params: dict of query parameters
             :return: None
@@ -46,7 +46,7 @@ def bind_request(**request_data):
 
         def _prepare_request(self):
             """
-            Prepare url and query parameters for the request
+            Prepares url and query parameters for the request
             :return: Tuple with two elements, url and query parameters
             """
             url_parts = {
@@ -66,7 +66,7 @@ def bind_request(**request_data):
 
         def _do_request(self, url, params):
             """
-            Make the request to BlaBlaCar Api servers
+            Makes the request to BlaBlaCar Api servers
             :url: Url for the request
             :params: Query parameters
             :return: Tuple with two elements, status code and content
