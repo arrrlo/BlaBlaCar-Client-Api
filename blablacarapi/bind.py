@@ -22,9 +22,12 @@ def bind_request(**request_data):
             self._set_parameters(*path_params, **query_params)
 
         def _set_parameters(self, *path_params, **query_params):
-            self.query_parameters = dict(list(self.query_parameters.items()) + 
-                                         list(self.client.standard_query_parameters.items()))
-            
+            """
+            Prepare the list of query parameters
+            :path_params: list of path parameters
+            :query_params: dict of query parameters
+            :return: None
+            """
             for key, value in query_params.items():
                 if value is None:
                     continue
@@ -36,14 +39,16 @@ def bind_request(**request_data):
             for value in path_params:
                 self.parameters['path'].append(value.encode('utf-8'))
             
-            self.parameters['query']['format'] = self.client.format
+            self.parameters['query']['_format'] = self.client.format
             self.parameters['query']['key'] = self.client.api_key
-
-            if 'locale' not in self.parameters['query']:
-                if os.environ.get('LC_ALL'):
-                    self.parameters['query']['locale'] = os.environ['LC_ALL']
+            self.parameters['query']['locale'] = self.client.locale
+            self.parameters['query']['cur'] = self.client.currency
 
         def _prepare_request(self):
+            """
+            Prepare url and query parameters for the request
+            :return: Tuple with two elements, url and query parameters
+            """
             url_parts = {
                 'protocol': self.client.protocol,
                 'base_url': self.client.base_url,
@@ -60,6 +65,12 @@ def bind_request(**request_data):
             return url, self.parameters['query']
 
         def _do_request(self, url, params):
+            """
+            Make the request to BlaBlaCar Api servers
+            :url: Url for the request
+            :params: Query parameters
+            :return: Tuple with two elements, status code and content
+            """
             if self.method == 'GET':
                 req = requests.get(url, params=params)
                 return req.status_code, req.json()
@@ -68,6 +79,12 @@ def bind_request(**request_data):
                 pass
 
         def _proccess_response(self, status_code, response):
+            """
+            Process response using models
+            :status_code: Response status code
+            :response: Content
+            :return: Model with the data from the response
+            """
             if status_code != 200:
                 if 'message' in response:
                     raise BlaBlaCarRequestApiException(response['message'])
@@ -79,11 +96,21 @@ def bind_request(**request_data):
             return self.model.proccess(response)
 
         def _call(self):
+            """
+            Makes the API call
+            :return: Return value from self._proccess_response()
+            """
             url, params = self._prepare_request()
             status_code, response = self._do_request(url, params)
             return self._proccess_response(status_code, response)
 
     def call(client, *path_params, **query_params):
+        """
+        Binded method for API calls
+        :path_params: list of path parameters
+        :query_params: dict of query parameters
+        :return: Return value from ApiRequest._call()
+        """
         request = ApiRequest(client, *path_params, **query_params)
         return request._call()
 
