@@ -49,7 +49,7 @@ trips.pager.previous() # returns False if the current page is 1, and it returns 
 <h3>Locales</h3>
 
 ```
-api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", currency="en_GB")
+api = BlaBlaCarApi(api_key="...", locale="en_GB", currency="en_GB")
 ```
 
 <h3>Debugging</h3>
