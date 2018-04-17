@@ -1,3 +1,4 @@
+import click
 import pprint
 
 
@@ -13,11 +14,10 @@ class Debug(object):
     def __init__(self, client):
         self.client = client
         self.recorded_data = {}
-        self.output = StandardOutput()
 
     def __enter__(self):
         return self
-    
+
     def __exit__(self, type, value, traceback):
         if self.client.debug:
             self.standard_output()
@@ -39,57 +39,21 @@ class Debug(object):
             return self.recorded_data
 
     def standard_output(self):
-        self.output.plain('')
-        self.output.green('BlaBlaCar API Client Debug')
-        self.output.green('----------------------------------------------------------')
+        click.echo('')
+        click.echo(click.style('BlaBlaCar API Client Debug', fg='green'))
+        click.echo(click.style('-'*100, fg='green'))
 
         for key, value in self.recorded_data.items():
-            if value['status'] == STATUS_OK:
-                output_method = self.output.blue
-            if value['status'] == STATUS_ERROR:
-                output_method = self.output.error
 
             value = value['value']
             if type(value) == object:
                 value = dir(value)
 
-            output_method('%s: [%s] %s' % (str(key), 
-                                           str(type(value)), 
-                                           pprint.pformat(value)))
+            output_str = '%s: [%s] %s' % (click.style(str(key), fg='green'),
+                                          click.style(str(type(value)), fg='blue'),
+                                          pprint.pformat(value))
 
-        self.output.green('----------------------------------------------------------')
-        self.output.plain('')
+            click.echo(output_str)
+            click.echo(click.style('-'*100, fg='green'))
 
-
-class StandardOutput(object):
-
-    BLUE = '\033[94m'
-    GREEN = '\033[92m'
-    WARNING = '\033[93m'
-    ERROR = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-
-    def base_message(self, m_type, message, end=None):
-        if end is None:
-            end = self.ENDC
-        print('%s%s%s' % (m_type, message, end))
-    
-    def plain(self, message):
-        self.base_message('',message,'')
-
-    def blue(self, message):
-        self.base_message(self.BLUE, message)
-
-    def green(self, message):
-        self.base_message(self.GREEN, message)
-
-    def warning(self, message):
-        self.base_message(self.WARNING, message)
-
-    def error(self, message):
-        self.base_message(self.ERROR, message)
-
-    def bold(self, message):
-        self.base_message(self.BOLD, message)
-
+        click.echo('')

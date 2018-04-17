@@ -6,16 +6,16 @@
 <p>Works on both 2.7.x and 3.x python.</p>
 
 ```
-pip install git+git://github.com/arrrlo/BlaBlaCar-Client-Api@master
+pip install blablacar
 ```
 
 <h3>Usage</h3>
 
 ```python
-from blablacar import BlaBlaCarApi
+from blablacarapi import BlaBlaCarApi
 
 # initialize API
-api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__")
+api = BlaBlaCarApi(api_key="fb248cd94d454e18a5fb7fb915327496")
 
 # fetch trips from London to Paris
 trips = api.trips(frm="London", to="Paris")
@@ -32,10 +32,7 @@ trips = api.trips(frm="London", to="Paris")
 
 # iterate over the trips
 for trip in trips.trips:
-	print("%s: %s -> %s" % (trip.departure_date,
-							trip.departure_place['address'],
-							trip.arrival_place['address']))
-
+	print("%s: %s -> %s" % (trip.departure_date, trip.departure_place['address'], trip.arrival_place['address']))
 	# fetch data for one trip using trip id
 	single_trip = api.trip(trip.permanent_id)
 

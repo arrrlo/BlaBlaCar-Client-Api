@@ -1,7 +1,7 @@
 import requests
 
-from debug import Debug
-from api_exceptions import BlaBlaCarRequestApiException
+from blablacarapi.debug import Debug
+from blablacarapi.api_exceptions import BlaBlaCarRequestApiException
 
 
 __author__ = 'ivan.arar@gmail.com'
@@ -40,7 +40,7 @@ def bind_request(**request_data):
 
             for value in path_params:
                 self.parameters['path'].append(value.encode('utf-8'))
-            
+
             self.parameters['query']['_format'] = self.client.format
             self.parameters['query']['key'] = self.client.api_key
             self.parameters['query']['locale'] = self.client.locale
@@ -58,7 +58,7 @@ def bind_request(**request_data):
                 'api_path': self.api_path,
             }
             url = '{protocol}://{base_url}{base_path}{api_path}'.format(**url_parts)
-            
+
             url_parts = self.parameters['path']
             url_parts.insert(0, url)
 
@@ -104,7 +104,7 @@ def bind_request(**request_data):
             else:
                 self.debug.ok('status_code', status_code)
                 self.debug.ok('response', response)
-            
+
             return self.model.proccess(response)
 
         def _call(self):

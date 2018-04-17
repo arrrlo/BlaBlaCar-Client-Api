@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from paging import Paging
+from blablacarapi.paging import Paging
 
 
 __author__ = 'ivan.arar@gmail.com'
@@ -62,4 +62,3 @@ class Trip(Model):
         self.departure_place = params.get('departure_place')
         self.locations_to_display = params.get('locations_to_display')
         self.price_with_commission = params.get('price_with_commission')
-        

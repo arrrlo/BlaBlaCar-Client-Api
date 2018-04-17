@@ -25,7 +25,7 @@ class Paging(object):
             return False
 
     def previous(self):
-        if self.previous_next():
+        if self.has_previous():
             return int(self.paging_data['page'])-1
         else:
             return False
