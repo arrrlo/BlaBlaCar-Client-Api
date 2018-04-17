@@ -1,5 +1,7 @@
 <h1>BlaBlaCar API Client Python Library</h1>
 
+[![PyPI version](https://badge.fury.io/py/BlaBlaCar-API.svg)](https://badge.fury.io/py/BlaBlaCar-API)
+
 <p>Easily search for trips!</p>
 
 <h3>Installation</h3>
