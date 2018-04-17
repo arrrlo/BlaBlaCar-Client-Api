@@ -50,7 +50,6 @@ trips.pager.previous() # returns False if the current page is 1, and it returns 
 
 ```python
 api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", currency="en_GB")
-```
 
 <h3>Debugging</h3>
 
@@ -61,7 +60,7 @@ api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", cu
 api = BlaBlaCarApi(api_key="...", debug=True)
 
 # after every API call the client library will automatically print all the data to standard output
-api.call(...)
+api.trips(...)
 
 # and you can always have all debug data in your code
 debug_data = api.request.debug.show()
