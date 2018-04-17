@@ -11,7 +11,7 @@ pip install git+git://github.com/arrrlo/BlaBlaCar-Client-Api@master
 
 <h3>Usage</h3>
 
-```
+```python
 from blablacar import BlaBlaCarApi
 
 # initialize API
@@ -32,8 +32,8 @@ trips = api.trips(frm="London", to="Paris")
 
 # iterate over the trips
 for trip in trips.trips:
-	print("%s: %s -> %s" % (trip.departure_date, 
-							trip.departure_place['address'], 
+	print("%s: %s -> %s" % (trip.departure_date,
+							trip.departure_place['address'],
 							trip.arrival_place['address']))
 
 	# fetch data for one trip using trip id
@@ -48,7 +48,7 @@ trips.pager.previous() # returns False if the current page is 1, and it returns 
 
 <h3>Locales</h3>
 
-```
+```python
 api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", currency="en_GB")
 ```
 
@@ -56,7 +56,7 @@ api = BlaBlaCarApi(api_key="__your_blablacar_api_key_here__", locale="en_GB", cu
 
 <p>If you want to debug your code using the data regarding the API call.</p>
 
-```
+```python
 # initialize with debug=True
 api = BlaBlaCarApi(api_key="...", debug=True)
 
