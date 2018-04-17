@@ -15,7 +15,7 @@ pip install blablacar
 from blablacarapi import BlaBlaCarApi
 
 # initialize API
-api = BlaBlaCarApi(api_key="fb248cd94d454e18a5fb7fb915327496")
+api = BlaBlaCarApi(api_key="__your_api_key_here__")
 
 # fetch trips from London to Paris
 trips = api.trips(frm="London", to="Paris")
