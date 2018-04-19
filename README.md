@@ -8,7 +8,7 @@
 <p>Works on both 2.7.x and 3.x python.</p>
 
 ```
-pip install blablacar
+pip install blablacar-api
 ```
 
 <h3>Usage</h3>
