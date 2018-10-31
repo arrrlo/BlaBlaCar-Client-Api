@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='BlaBlaCar API',
-    version='0.2.2',
+    version='0.2.3',
 
     description='BlaBlaCar Client Api',
     long_description=readme(),
@@ -32,7 +32,7 @@ setup(
 
     packages=['blablacarapi'],
     install_requires=[
-        'requests ~= 2.11.0',
+        'requests~=2.20.0',
         'click ~= 6.7',
         'colorama~=0.3'
     ],

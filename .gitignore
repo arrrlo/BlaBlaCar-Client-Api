@@ -5,3 +5,7 @@ __pycache__/*
 test.py
 
 blablacarapi.egg-info/*
+/.idea/
+/BlaBlaCar_API.egg-info/
+/build/
+/dist/
